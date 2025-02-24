@@ -1,0 +1,54 @@
+{
+  "name": "Mickelsen Get Summary - Exported 2024-12-23 @ 12:13",
+  "integrationType": "purecloud-data-actions",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "/api/v2/conversations/$Input.conversationId/summaries",
+      "requestType": "GET",
+      "headers": {},
+      "requestTemplate": "${input.rawRequest}"
+    },
+    "response": {
+      "translationMap": {
+        "text": "$.sessionSummaries[?(@.mediaType == 'Message')].text"
+      },
+      "translationMapDefaults": {
+        "text": "\"\""
+      },
+      "successTemplate": "{\"text\": ${successTemplateUtils.firstFromArray(${text})}}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "description": "Retrieve a list of participants of a conversation.",
+        "type": "object",
+        "required": [
+          "conversationId"
+        ],
+        "properties": {
+          "conversationId": {
+            "description": "The conversation ID.",
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "output": {
+      "successSchema": {
+        "description": "Returns the estimated wait time.",
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "secure": false
+}

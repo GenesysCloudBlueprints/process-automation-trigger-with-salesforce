@@ -1,0 +1,73 @@
+{
+  "name": "Mickelsen_SFDC_Create Case - Exported 2024-12-23 @ 12:15",
+  "integrationType": "salesforce-datadip",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "/services/data/v55.0/sobjects/Case/",
+      "requestType": "POST",
+      "headers": {},
+      "requestTemplate": "{\"ContactId\": \"${input.contactId}\",\"Subject\": \"${input.subject}\",\"Description\": \"${input.description}\",\"Origin\":\"Alexa\"}"
+    },
+    "response": {
+      "translationMap": {},
+      "translationMapDefaults": {},
+      "successTemplate": "${rawResult}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "ContactIdRequest",
+        "description": "A Contact Id based Request",
+        "type": "object",
+        "required": [
+          "description",
+          "subject",
+          "contactId"
+        ],
+        "properties": {
+          "description": {
+            "description": "Description for the case",
+            "type": "string"
+          },
+          "subject": {
+            "description": "Subject of the case",
+            "type": "string"
+          },
+          "contactId": {
+            "description": "Contact to relate the case to",
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "output": {
+      "successSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "required": [
+          "errors",
+          "id",
+          "success"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {}
+          },
+          "id": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "secure": false
+}
