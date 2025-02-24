@@ -16,7 +16,6 @@ This blueprint implements a Process Automation Trigger that can be used for crea
 
 * **Genesys Cloud** - A suite of Genesys cloud services for enterprise-grade communications, collaboration, and contact center management. Contact center agents use the Genesys Cloud user interface.
 * **Genesys Cloud API** - A set of RESTful APIs that enables you to extend and customize your Genesys Cloud environment.
-* **Data Table** - Provides the ability to save blacklisted phone numbers from inbound calling.
 * **Data Action** - Provides the integration point to invoke a third-party REST web service or AWS lambda.
 * **Architect flows** - A flow in Architect, a drag and drop web-based design tool, dictates how Genesys Cloud handles inbound or outbound interactions.
 * **Triggers** - Provides the ability for a data action and architect workflow to work cohisively to perform the task.
@@ -82,10 +81,6 @@ After the `terraform apply --auto-approve` command successfully completes, you c
    * This project assumes that you run this blueprint solution with a local Terraform backing state, which means that the `tfstate` files are created in the same folder where you run the project. Terraform recommends that you use local Terraform backing state files **only** if you run from a desktop or are comfortable deleting files.
 
    * As long as you keep your local Terraform backing state projects, you can tear down this blueprint solution. To tear down the solution, change to the `docs/terraform` folder and issue the  `terraform destroy --auto-approve` command. This command destroys all objects that the local Terraform backing state currently manages.
-
-### SMS Number Configuration
-
-Manually associate your purchased SMS Number to the Inbound Message Flow by following the steps [here](#associate-sms-number-to-inbound-message-flow).
 
 ## Configure Genesys Cloud manually
 
@@ -165,7 +160,7 @@ First import this workflow to your Genesys Cloud organization:
 
    **Note:** If you imported the `Mickelsen_Conversation_Summary_v10-0.i3WorkFlow` file, your workflow will look like the flow below. 
 
-   ![Full architect workflow](images/full-architect-workflow.png "Full architect workflow")
+   ![Full architect workflow](images/workflow.png "Full architect workflow")
 
 ### Triggers
 
