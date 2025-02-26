@@ -1,9 +1,9 @@
-variable "group_id" {
+variable "workflow_id" {
   type        = string
-  description = "The Group ID to be used for creating Integration"
+  description = "Workflow ID."
 }
 
-variable "account_id" {
+variable "ani" {
   type        = string
-  description = "The Account ID to be used for creating Integration"
+  description = "ANI of customer"
 }

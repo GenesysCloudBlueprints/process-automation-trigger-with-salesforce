@@ -1,7 +1,7 @@
 /*
   Creates the action
 */
-resource "genesyscloud_integration_action" "create-workitem" {
+resource "genesyscloud_integration_action" "create-case" {
   name                   = var.action_name
   category               = var.action_category
   integration_id         = var.integration_id
@@ -10,37 +10,13 @@ resource "genesyscloud_integration_action" "create-workitem" {
     "title" = "source",
     "type" = "object",
     "properties" = {
-      "name": {
+      "description": {
         "type": "string"
       },
-      "priority": {
+      "subject": {
         "type": "integer"
       },
-      "workbinId": {
-        "type": "string"
-      },
-      "typeId": {
-        "type": "string"
-      },
-      "casetype_text": {
-        "type": "string"
-      },
-      "customername_text": {
-        "type": "string"
-      },
-      "customernumber_text": {
-        "type": "string"
-      },
-      "memo_longtext": {
-        "type": "string"
-      },
-      "hb_ticketid": {
-        "type": "string"
-      },
-      "externalcontactid": {
-        "type": "string"
-      },
-      "hb_url": {
+      "contactId": {
         "type": "string"
       }
     }
@@ -49,6 +25,12 @@ resource "genesyscloud_integration_action" "create-workitem" {
     "type" = "object",
     "properties" = {
       "id" = {
+        "tyerrorspe": "string"
+      },
+      "id" = {
+        "type": "string"
+      },
+      "success" = {
         "type": "string"
       }
     }
@@ -56,13 +38,10 @@ resource "genesyscloud_integration_action" "create-workitem" {
   config_request {
     # Use '$${' to indicate a literal '${' in template strings. Otherwise Terraform will attempt to interpolate the string
     # See https://www.terraform.io/docs/language/expressions/strings.html#escape-sequences
-    request_url_template = "/api/v2/taskmanagement/workitems"
+    request_url_template = "/services/data/v55.0/sobjects/Case/"
     request_type         = "POST"
-    request_template     = "{\"properties\": {\"name\": \"$${input.name}\" ,  \"priority\": $${input.priority}, \"workbinId\": \"$${input.workbinId}\", \"typeId\":  \"$${input.typeId}\", \"externalContactId\": \"$${input.externalcontactid}\"  ,\"customFields\" : {\"casetype_text\": \"$${input.casetype_text}\" , \"customername_text\": \"$${input.customername_text}\" , \"customernumber_text\": \"$${input.customernumber_text}\", \"memo_longtext\": \"$${input.memo_longtext}\" , \"hb_ticketid_text\": \"$${input.hb_ticketid}\", \"hb_url_url\": \"$${input.hb_url}\"}}"
+    request_template     = "{\"ContactId\": \"$${input.contactId}\",\"Subject\": \"$${input.subject}\",\"Description\": \"$${input.description}\",\"Origin\":\"Alexa\"}"
     headers = {
-      "Authorization": "${var.bearer_token}",
-      "Content-Type": "application/json"
-    }
   }
   config_response {
     translation_map = {}

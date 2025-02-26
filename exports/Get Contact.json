@@ -1,0 +1,158 @@
+{
+  "name": "Mickelsen_SFDC_Get Contact by Phone Number_Finance_Insurance - Exported 2025-02-26 @ 9:35",
+  "integrationType": "salesforce-datadip",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "/services/data/v37.0/search/?q=$esc.url(\"FIND {$salesforce.escReserved(${input.PHONE_NUMBER}))} IN PHONE FIELDS RETURNING Contact(AccountId,Birthdate,CreatedDate,Description,Email,Fax,FirstName,HomePhone,Id,IsDeleted,LastName,LeadSource,mickelsen051599__Policy_Advisor__c,mickelsen051599__Policy_Number__c,mickelsen051599__Account_Type__c,mickelsen051599__Account_Number__c,mickelsen051599__Balance__c,mickelsen051599__Policy_Type__c,mickelsen051599__Vehicle_Make_Model__c,mickelsen051599__Vehicle_Year__c,mickelsen051599__Payment_Amount__c,mickelsen051599__Payment_Due_Date__c,mickelsen051599__Payment_Status__c,MailingAddress,MailingCity,MailingCountry,MailingPostalCode,MailingState,MailingStreet,MobilePhone,Name,OwnerId,Phone,Salutation,Title)\")",
+      "requestType": "GET",
+      "headers": {
+        "UserAgent": "PureCloudIntegrations/1.0"
+      },
+      "requestTemplate": "${input.rawRequest}"
+    },
+    "response": {
+      "translationMap": {
+        "contact": "$.searchRecords"
+      },
+      "translationMapDefaults": {},
+      "successTemplate": "${contact}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Phone Number Request",
+        "description": "A phone number-based request.",
+        "type": "object",
+        "required": [
+          "PHONE_NUMBER"
+        ],
+        "properties": {
+          "PHONE_NUMBER": {
+            "description": "The phone number used for the query.",
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "output": {
+      "successSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "array",
+        "properties": {},
+        "items": {
+          "title": "Contact",
+          "description": "A  Salesforce contact.",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "required": [
+            "Id"
+          ],
+          "properties": {
+            "Id": {
+              "description": "The ID of the contact.",
+              "type": "string"
+            },
+            "FirstName": {
+              "description": "The first name of the contact.",
+              "type": "string"
+            },
+            "LastName": {
+              "description": "The last name of the contact.",
+              "type": "string"
+            },
+            "mickelsen051599__Policy_Advisor__c": {
+              "description": "Email of Policy Advisor.",
+              "type": "string"
+            },
+            "mickelsen051599__Policy_Number__c": {
+              "description": "Insurance Policy Number.",
+              "type": "string"
+            },
+            "mickelsen051599__Policy_Type__c": {
+              "description": "Type of Insurance Policy.",
+              "type": "string"
+            },
+            "mickelsen051599__Vehicle_Make_Model__c": {
+              "description": "Type of Vehicle.",
+              "type": "string"
+            },
+            "mickelsen051599__Vehicle_Year__c": {
+              "description": "Production year of the vehicle.",
+              "type": "string"
+            },
+            "mickelsen051599__Account_Type__c": {
+              "description": "Type of bank account.",
+              "type": "string"
+            },
+            "mickelsen051599__Account_Number__c": {
+              "description": "Bank account number.",
+              "type": "string"
+            },
+            "mickelsen051599__Balance__c": {
+              "description": "Bank account number.",
+              "type": "string"
+            },
+            "mickelsen051599__Payment_Status__c": {
+              "description": "Status of payment.",
+              "type": "string"
+            },
+            "mickelsen051599__Payment_Amount__c": {
+              "description": "Amount of payment.",
+              "type": "string"
+            },
+            "mickelsen051599__Payment_Due_Date__c": {
+              "description": "Date of next payment.",
+              "type": "string"
+            },
+            "Phone": {
+              "description": "The phone number of the contact.",
+              "type": "string"
+            },
+            "HomePhone": {
+              "description": "The home phone number of the contact.",
+              "type": "string"
+            },
+            "MobilePhone": {
+              "description": "The mobile phone number of the contact.",
+              "type": "string"
+            },
+            "OtherPhone": {
+              "description": "Other phone number of the contact.",
+              "type": "string"
+            },
+            "Email": {
+              "description": "The email address of the contact.",
+              "type": "string"
+            },
+            "MailingStreet": {
+              "description": "The street address of the contact.",
+              "type": "string"
+            },
+            "MailingCity": {
+              "description": "The city of the contact.",
+              "type": "string"
+            },
+            "MailingState": {
+              "description": "The state of the contact.",
+              "type": "string"
+            },
+            "MailingPostalCode": {
+              "description": "The postal code of the contact.",
+              "type": "string"
+            },
+            "MailingCountry": {
+              "description": "The country of the contact.",
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        }
+      }
+    }
+  },
+  "secure": false
+}

@@ -140,9 +140,7 @@ To create a data action integration in Genesys Cloud:
 
 This solution includes one Architect workflow that uses one [data action](#add-genesys-cloud-data-action-integrations "Goes to the Add a web services data actions integration section"). 
 
-* The **Mickelsen_Conversation_Summary_v10-0.i3WorkFlow** workflow is triggered when a voice interaction has ended and has a disconnect type of `unknown`, `system`, `error`, `other`, `timeout`, `transport failure` and `uncallable`. This workflow calls a data action to send an agentless SMS to the customer.
-
-* If the caller responds for a callback, the inbound message flow **SMS Schedule Callback.i3InboundMessage** will execute a data action which will schedule an immediate callback which will reconnect the caller to the agent.
+* The **Mickelsen_Conversation_Summary_v10-0.i3WorkFlow** workflow is triggered when a conversation has ended. This workflow calls a data action to create a case on SalesForce.
 
 First import this workflow to your Genesys Cloud organization:
 

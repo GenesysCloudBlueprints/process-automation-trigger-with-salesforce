@@ -1,0 +1,354 @@
+workflow:
+  name: Conversation_Summary
+  description: Workflow to push summarizations OF LIVE INTERACTIONS to an external source.
+  division: New Home
+  startUpRef: "/workflow/states/state[Initial State_10]"
+  defaultLanguage: en-us
+  supportedLanguages:
+    en-us:
+      none: true
+  variables:
+    - jsonVariable:
+        name: Flow.ani
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - stringVariable:
+        name: Flow.caseid
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - stringVariable:
+        name: Flow.contactid
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - stringVariable:
+        name: Flow.conversationId
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - jsonVariable:
+        name: Flow.conversationIdjson
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - stringVariable:
+        name: Flow.for
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - stringVariable:
+        name: Flow.formattedani
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - jsonVariable:
+        name: Flow.jsonData
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: false
+    - jsonVariable:
+        name: Flow.jsonSummary
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: true
+    - jsonVariable:
+        name: Flow.jsonWrapupCode
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - jsonVariable:
+        name: Flow.rawani
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - stringVariable:
+        name: Flow.summar
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - stringVariable:
+        name: Flow.summarization
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - jsonVariable:
+        name: Flow.summary
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+  settingsErrorHandling:
+    errorHandling:
+      endWorkflow:
+        none: true
+  states:
+    - state:
+        name: Initial State
+        refId: Initial State_10
+        variables:
+          - jsonVariable:
+              name: State.jsonReason
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - jsonVariable:
+              name: State.jsonResolution
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+        actions:
+          - updateData:
+              name: Update Data
+              statements:
+                - json:
+                    variable: Flow.conversationIdjson
+                    value:
+                      exp: GetJsonObjectProperty(Flow.jsonData, "conversationId")
+                - string:
+                    variable: Flow.formattedani
+                    value:
+                      exp: ToPhoneNumber(ToString(GetJsonObjectProperty(Flow.jsonData, "ani"))).e164
+          - callData:
+              name: Call Data Action
+              timeout:
+                lit:
+                  minutes: 1
+              category:
+                {{data_action_category}}:
+                  dataAction:
+                    {{get_contact_data_action_name}}:
+                      inputs:
+                        PHONE_NUMBER:
+                          exp: Flow.formattedani
+                      successOutputs:
+                        Id:
+                          var: Flow.contactid
+                        FirstName:
+                          noValue: true
+                        LastName:
+                          noValue: true
+                        mickelsen051599__Policy_Advisor__c:
+                          noValue: true
+                        mickelsen051599__Policy_Number__c:
+                          noValue: true
+                        mickelsen051599__Policy_Type__c:
+                          noValue: true
+                        mickelsen051599__Vehicle_Make_Model__c:
+                          noValue: true
+                        mickelsen051599__Vehicle_Year__c:
+                          noValue: true
+                        mickelsen051599__Account_Type__c:
+                          noValue: true
+                        mickelsen051599__Account_Number__c:
+                          noValue: true
+                        mickelsen051599__Balance__c:
+                          noValue: true
+                        mickelsen051599__Payment_Status__c:
+                          noValue: true
+                        mickelsen051599__Payment_Amount__c:
+                          noValue: true
+                        mickelsen051599__Payment_Due_Date__c:
+                          noValue: true
+                        Phone:
+                          noValue: true
+                        HomePhone:
+                          noValue: true
+                        MobilePhone:
+                          noValue: true
+                        OtherPhone:
+                          noValue: true
+                        Email:
+                          noValue: true
+                        MailingStreet:
+                          noValue: true
+                        MailingCity:
+                          noValue: true
+                        MailingState:
+                          noValue: true
+                        MailingPostalCode:
+                          noValue: true
+                        MailingCountry:
+                          noValue: true
+                      failureOutputs:
+                        errorCode:
+                          noValue: true
+                        status:
+                          noValue: true
+                        correlationId:
+                          noValue: true
+                        entityId:
+                          noValue: true
+                        entityName:
+                          noValue: true
+                        userMessage:
+                          noValue: true
+                        userParamsMessage:
+                          noValue: true
+                        userParams.key:
+                          noValue: true
+                        userParams.value:
+                          noValue: true
+                        details.errorCode:
+                          noValue: true
+                        details.fieldName:
+                          noValue: true
+                        details.entityId:
+                          noValue: true
+                        details.entityName:
+                          noValue: true
+              outputs:
+                success:
+                  actions:
+                    - callData:
+                        name: Call Data Action
+                        timeout:
+                          lit:
+                            minutes: 1
+                        category:
+                          Genesys Cloud Data Actions:
+                            dataAction:
+                              {{get_summary_data_action_name}}:
+                                inputs:
+                                  conversationId:
+                                    exp: Flow.conversationIdjson
+                                successOutputs:
+                                  text:
+                                    var: Flow.summarization
+                                failureOutputs:
+                                  errorCode:
+                                    noValue: true
+                                  status:
+                                    noValue: true
+                                  correlationId:
+                                    noValue: true
+                                  entityId:
+                                    noValue: true
+                                  entityName:
+                                    noValue: true
+                                  userMessage:
+                                    noValue: true
+                                  userParamsMessage:
+                                    noValue: true
+                                  userParams.key:
+                                    noValue: true
+                                  userParams.value:
+                                    noValue: true
+                                  details.errorCode:
+                                    noValue: true
+                                  details.fieldName:
+                                    noValue: true
+                                  details.entityId:
+                                    noValue: true
+                                  details.entityName:
+                                    noValue: true
+                        outputs:
+                          success:
+                            actions:
+                              - callData:
+                                  name: Call Data Action
+                                  timeout:
+                                    lit:
+                                      minutes: 1
+                                  category:
+                                    {{data_action_category}}:
+                                      dataAction:
+                                        {{create_case_data_action_name}}:
+                                          inputs:
+                                            description:
+                                              exp: Flow.summarization
+                                            subject:
+                                              lit: Backorder Status TKM1115
+                                            contactId:
+                                              exp: Flow.contactid
+                                          successOutputs:
+                                            id:
+                                              noValue: true
+                                            success:
+                                              noValue: true
+                                          failureOutputs:
+                                            errorCode:
+                                              noValue: true
+                                            status:
+                                              noValue: true
+                                            correlationId:
+                                              noValue: true
+                                            entityId:
+                                              noValue: true
+                                            entityName:
+                                              noValue: true
+                                            userMessage:
+                                              noValue: true
+                                            userParamsMessage:
+                                              noValue: true
+                                            userParams.key:
+                                              noValue: true
+                                            userParams.value:
+                                              noValue: true
+                                            details.errorCode:
+                                              noValue: true
+                                            details.fieldName:
+                                              noValue: true
+                                            details.entityId:
+                                              noValue: true
+                                            details.entityName:
+                                              noValue: true
+                                  outputs:
+                                    success:
+                                      actions:
+                                        - endWorkflow:
+                                            name: End Workflow
+                                            exitReason:
+                                              noValue: true
+                                    failure:
+                                      actions:
+                                        - endWorkflow:
+                                            name: End Workflow
+                                            exitReason:
+                                              noValue: true
+                                    timeout:
+                                      actions:
+                                        - endWorkflow:
+                                            name: End Workflow
+                                            exitReason:
+                                              noValue: true
+                          failure:
+                            actions:
+                              - endWorkflow:
+                                  name: End Workflow
+                                  exitReason:
+                                    noValue: true
+                          timeout:
+                            actions:
+                              - endWorkflow:
+                                  name: End Workflow
+                                  exitReason:
+                                    noValue: true
+                failure:
+                  actions:
+                    - endWorkflow:
+                        name: End Workflow
+                        exitReason:
+                          noValue: true
+                timeout:
+                  actions:
+                    - endWorkflow:
+                        name: End Workflow
+                        exitReason:
+                          noValue: true
