@@ -1,7 +1,11 @@
+data "genesyscloud_user" "user" {
+  email = var.email
+}
+
 // Create a Data Action integration
 module "data_action" {
   source                          = "git::https://github.com/GenesysCloudDevOps/public-api-data-actions-integration-module?ref=main"
-  integration_name                = "Conversation Summary"
+  integration_name                = "SalesForce Integration"
   integration_creds_client_id     = var.client_id
   integration_creds_client_secret = var.client_secret
 }
@@ -30,11 +34,6 @@ module "create_case_data_action" {
   integration_id     = "${module.data_action.integration_id}"
 }
 
-// Get Queue ID of queue
-data "genesyscloud_routing_queue" "customer_queue" {
-  name = var.customer_queue
-}
-
 // Configures the architect workflow
 module "archy_flow" {
   source                           = "./modules/flow"
@@ -47,8 +46,10 @@ module "archy_flow" {
 
 // Create a Trigger
 module "trigger" {
-  source       = "./modules/trigger"
-  workflow_id  = module.archy_flow.flow_id
-  dnis         = var.dnis
-  depends_on   = [ module.archy_flow ]
+  source          = "./modules/trigger"
+  workflow_id     = module.archy_flow.flow_id
+  user_id         = data.genesyscloud_user.user_id
+  conversation_id = var.conversation_id
+  ani             = var.ani
+  depends_on      = [ module.archy_flow ]
 }

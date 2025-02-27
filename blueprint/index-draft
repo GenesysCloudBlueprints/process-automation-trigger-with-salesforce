@@ -16,6 +16,7 @@ This blueprint implements a Process Automation Trigger that can be used for crea
 
 * **Genesys Cloud** - A suite of Genesys cloud services for enterprise-grade communications, collaboration, and contact center management. Contact center agents use the Genesys Cloud user interface.
 * **Genesys Cloud API** - A set of RESTful APIs that enables you to extend and customize your Genesys Cloud environment.
+* **Agent Copilot** - Enhances communication between the agent and the customer, see [About Genesys Agent Copilot](https://help.mypurecloud.com/articles/about-genesys-agent-copilot/ "Opens the About Genesys Agent Copilot article").
 * **Data Action** - Provides the integration point to invoke a third-party REST web service or AWS lambda.
 * **Architect flows** - A flow in Architect, a drag and drop web-based design tool, dictates how Genesys Cloud handles inbound or outbound interactions.
 * **Triggers** - Provides the ability for a data action and architect workflow to work cohisively to perform the task.
@@ -25,7 +26,7 @@ This blueprint implements a Process Automation Trigger that can be used for crea
 ### Specialized knowledge
 
 * Administrator-level knowledge of Genesys Cloud
-* Experience with REST API authentication
+* Experience with using Agent Copilot
 
 ### Genesys Cloud account
 
@@ -58,12 +59,14 @@ Clone the [process-automation-trigger-with-salesforce repository](https://github
 
 * `client_id` - The value of your OAuth Client ID using Client Credentials to be used for the data action integration.
 * `client_secret`- The value of your OAuth Client secret using Client Credentials to be used for the data action integration.
+* `email`- The value of the email address of the agent to be used for the trigger.
 
 The following is an example of the dev.auto.tfvars file.
 
 ```
 client_id       = "your-client-id"
 client_secret   = "your-client-secret"
+email           = "test.dummy@email.com"
 ```
 
 ### Run Terraform

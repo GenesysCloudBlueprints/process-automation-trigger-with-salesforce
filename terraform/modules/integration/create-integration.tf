@@ -2,7 +2,7 @@ resource "genesyscloud_integration" "integration" {
   intended_state    = "DISABLED"
   integration_type  = "embedded-client-app"
   config {
-    name = "hubspot_integration"
+    name = "Salesforce Integration"
     properties      = jsonencode({
       "displayType" = "standalone",
       "sandbox"     = "allow-scripts,allow-same-origin,allow-forms,allow-modals",
