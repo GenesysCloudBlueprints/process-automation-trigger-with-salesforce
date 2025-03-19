@@ -17,8 +17,3 @@ variable "create_case_data_action_name" {
   type        = string
   description = "The Data Action name that is used for creating a case on salesforce."
 }
-
-variable "support_queue" {
-  type        = string
-  description = "The name of your configured queue."
-}
