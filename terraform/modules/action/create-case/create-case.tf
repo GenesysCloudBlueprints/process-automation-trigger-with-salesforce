@@ -10,14 +10,14 @@ resource "genesyscloud_integration_action" "create-case" {
     "title" = "source",
     "type" = "object",
     "properties" = {
-      "description": {
-        "type": "string"
+      "description" = {
+        "type" = "string"
       },
-      "subject": {
-        "type": "integer"
+      "subject" = {
+        "type" = "string"
       },
-      "contactId": {
-        "type": "string"
+      "contactId" = {
+        "type" = "string"
       }
     }
   })
@@ -25,23 +25,19 @@ resource "genesyscloud_integration_action" "create-case" {
     "type" = "object",
     "properties" = {
       "id" = {
-        "tyerrorspe": "string"
-      },
-      "id" = {
-        "type": "string"
+        "type" = "string"
       },
       "success" = {
-        "type": "string"
+        "type" = "string"
       }
     }
   })
   config_request {
-    # Use '$${' to indicate a literal '${' in template strings. Otherwise Terraform will attempt to interpolate the string
-    # See https://www.terraform.io/docs/language/expressions/strings.html#escape-sequences
+    # Use '$${' to indicate a literal '${' in template strings
     request_url_template = "/services/data/v55.0/sobjects/Case/"
     request_type         = "POST"
     request_template     = "{\"ContactId\": \"$${input.contactId}\",\"Subject\": \"$${input.subject}\",\"Description\": \"$${input.description}\",\"Origin\":\"Alexa\"}"
-    headers = {
+    headers = {}
   }
   config_response {
     translation_map = {}

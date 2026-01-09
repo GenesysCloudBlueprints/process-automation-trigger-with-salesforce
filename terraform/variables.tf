@@ -21,8 +21,24 @@ variable "username" {
 variable "password" {
   type        = string
   description = "The password to use for Salesforce integration creation"
+}
 
 variable "security_token" {
   type        = string
   description = "The security token to use for Salesforce integration creation"
+}
+
+variable "conversation_id" {
+  type        = string
+  description = "The conversation ID for the trigger"
+}
+
+variable "ani" {
+  type        = string
+  description = "The ANI (Automatic Number Identification) for the trigger"
+}
+
+variable "support_queue" {
+  type        = string
+  description = "The support queue name to be used in the workflow"
 }

@@ -3,6 +3,9 @@
 **/.terraform.*
 **/sdk_debug.log
 
+# Environment files with secrets
+.env
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
