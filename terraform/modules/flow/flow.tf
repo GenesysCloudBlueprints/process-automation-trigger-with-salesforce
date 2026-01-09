@@ -1,6 +1,5 @@
 resource "genesyscloud_flow" "workflow" {
   filepath = "${path.module}/Conversation Summary.yaml"
-  file_content_hash = filesha256("${path.module}/Conversation Summary.yaml")
   substitutions = {
     flow_name                      = "Mickelsen_Conversation_Summary"
     division                       = "Home"

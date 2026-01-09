@@ -12,3 +12,8 @@ variable "user_id" {
   type        = string
   description = "user id of agent"
 }
+
+variable "conversation_id" {
+  type        = string
+  description = "The conversation ID for the trigger"
+}

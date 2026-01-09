@@ -1,7 +1,7 @@
 /*
   Creates the action
 */
-resource "genesyscloud_integration_action" "create-summary" {
+resource "genesyscloud_integration_action" "get-summary" {
   name                   = var.action_name
   category               = var.action_category
   integration_id         = var.integration_id
@@ -18,13 +18,12 @@ resource "genesyscloud_integration_action" "create-summary" {
     "type" = "object",
     "properties" = {
       "text" = {
-        "type": "string"
+        "type" = "string"
       }
     }
   })
   config_request {
-    # Use '$${' to indicate a literal '${' in template strings. Otherwise Terraform will attempt to interpolate the string
-    # See https://www.terraform.io/docs/language/expressions/strings.html#escape-sequences
+    # Use '$${' to indicate a literal '${' in template strings
     request_url_template = "/api/v2/conversations/$Input.conversationId/summaries"
     request_type         = "GET"
     request_template     = "$${input.rawRequest}"
@@ -32,10 +31,10 @@ resource "genesyscloud_integration_action" "create-summary" {
   }
   config_response {
     translation_map = {
-      "text": "$.sessionSummaries[?(@.mediaType == 'Message')].text"
+      "text" = "$.sessionSummaries[?(@.mediaType == 'Message')].text"
     }
     translation_map_defaults = {
-      "text": "\"\""
+      "text" = "\"\""
     }
     success_template = "{\"text\": $${successTemplateUtils.firstFromArray($${text})}}"
   }
